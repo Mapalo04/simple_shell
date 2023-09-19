@@ -6,17 +6,16 @@
  *
  */
 
-void execmd(char **argv){
+void execmd(char **argv)
+{
 	char *cmd = NULL, *command = NULL;
 
-	if (argv){
+	if (argv)
+	{
 		cmd = argv[0];
-
 		command = get_path(cmd);
-
-		if (execve(command, argv, NULL) == -1){
+		if (execve(command, argv, NULL) == -1)
 			perror("Error:");
-		}
 	}
 
 }
