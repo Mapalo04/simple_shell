@@ -7,7 +7,7 @@
  * Return: length of the string.
  */
 
-int _strlen(char *s)
+int _strlen(const char *s)
 {
 	int len = 0;
 
@@ -69,8 +69,6 @@ char *_strdup(char *s)
 
 	return (dup);
 }
-
-
 /**
  * _strcat - concatenates two strings
  * @dest: holds result
@@ -78,7 +76,6 @@ char *_strdup(char *s)
  *
  * Return: concatenated string
  */
-
 char *_strcat(char *dest, char *src)
 {
 	int len1 = 0, len2 = 0;
