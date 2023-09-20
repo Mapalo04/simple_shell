@@ -31,7 +31,7 @@ int main(int ac, char **argv)
 			/* prints and gets the input from user */
 			printf("$ ");
 			nread_ch = getline(&lineptr, &n, stdin);
-			if (nread_ch == -1)
+			if (nread_ch == -1 || nread_ch == EOF)
 			{
 				printf("shell exited\n");
 				exit(0);
