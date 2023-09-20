@@ -13,7 +13,7 @@ char *get_path(char *cmd)
 	int cmd_length, directory_length;
 	struct stat buffer;
 
-	path = getenv("PATH");
+	path = my_getenv("PATH");
 	if (path)
 	{
 	path_copy = _strdup(path);

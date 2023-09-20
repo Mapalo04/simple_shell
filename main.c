@@ -20,6 +20,7 @@ int main(int ac, char **argv)
 	/* displays the shell over and over */
 	while (1)
 	{
+		/* prints and gets the input from user */
 		pid = fork();
 		if (pid == -1)
 		{
@@ -28,7 +29,6 @@ int main(int ac, char **argv)
 		}
 		else if (pid == 0)
 		{
-			/* prints and gets the input from user */
 			printf("$ ");
 			nread_ch = getline(&lineptr, &n, stdin);
 			if (nread_ch == -1 || nread_ch == EOF)
@@ -36,16 +36,11 @@ int main(int ac, char **argv)
 				printf("shell exited\n");
 				exit(0);
 				return (-1);
-			}
-			/**
-			 * makes a copy of the string and divides it into separate strings
-			 * for command execution
-			 * */
+			}/*makes a copy of the string and divides it into separate strings*/
 			num_tokens = path_form(lineptr, token, nread_ch);
 			argv = malloc(sizeof(char *) * num_tokens);
 			if (argv == NULL)
 				return (-1);
-			
 			token = cust_strtok(lineptr, delim);
 			for (i = 0; token != NULL; i++)
 			{
@@ -57,13 +52,14 @@ int main(int ac, char **argv)
 			execmd(argv);
 		}
 		else
+		{
 			wait(NULL);
+		}
 	}
 	free(argv);
 	free(lineptr);
 	return (0);
 }
-
 /**
  * path_form - makes a proper path for the command
  * @lineptr: points to the string containing user input

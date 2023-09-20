@@ -29,6 +29,6 @@ void setenv_builtin(char **arg);
 int path_form(char *lineptr, char *token, ssize_t nreadch);
 void builtin_exit(char **arg);
 char *cust_strtok(char *string, const char *delimiters);
-
+int _printf(char *str);
 
 #endif
