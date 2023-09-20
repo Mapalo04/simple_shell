@@ -25,15 +25,3 @@ char *my_getenv(const char *nm)
 	}
 	return (NULL);
 }
-int main() {
-    const char *var_name = "PATH";
-    char *var_value = my_getenv(var_name);
-
-    if (var_value != NULL) {
-        printf("%s=%s\n", var_name, var_value);
-    } else {
-        printf("%s not found in the environment.\n", var_name);
-    }
-
-    return 0;
-}

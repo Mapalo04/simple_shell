@@ -5,13 +5,12 @@ char *cust_strtok(char *command, const char *del)
 {
 	char *begin_token; /*where the string command starts*/
 	static char *end_token = NULL;/*the last string*/
-	bool is_delim = true;
 	
 	if (command != NULL)
 	{
 		end_token = command;
 	}
-	while (*end_token && strchr(del, *end_token))
+	while (*end_token && _strchr(del, *end_token))
 	{
 		end_token++;
 	}
@@ -20,7 +19,7 @@ char *cust_strtok(char *command, const char *del)
 		return (NULL);
 	}
 	begin_token = end_token;
-	while (*end_token && !strchr(del, *end_token))
+	while (*end_token && !_strchr(del, *end_token))
 	{
 		end_token++;
 	}

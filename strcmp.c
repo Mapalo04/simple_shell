@@ -24,3 +24,22 @@ int _strncmp(const char *str1, const char *str2, size_t n)
 	}
 	return (0);
 }
+/**
+ * _strchr- It searches characters of a string
+ * @s: The string to be checked
+ * @ch: the character we are looking for
+ *
+ * Return: The char, otherwise return
+ */
+const char* _strchr(const char *s, int ch)
+{
+	while (*s != '\0')
+	{
+		if (*s == ch)
+		{
+			return (s);
+		}
+		s++;
+	}
+	return (NULL);
+}
