@@ -43,7 +43,7 @@ char *get_path(char *cmd)
 	}
 	free(path_copy);
 	/* check if the command */
-	if (stat(path, &buffer) == 0)
+	if (stat(path, &buffer) != 0)
 		return (cmd);
 	return (NULL);
 	}

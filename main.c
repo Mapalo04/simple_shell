@@ -14,14 +14,14 @@ int main(int ac, char **argv)
 {
 	char *lineptr;
 	char *delim = " \n", *token;
-	int num_tokens = 0, i, op = 1;
+	int num_tokens = 0, i;
 	size_t n = 0;
 	ssize_t nread_ch;
 	pid_t pid;
 
 	(void)ac;
 	/* displays the shell over and over */
-	while (op)
+	while (1)
 	{
 	pid = fork();
 	if (pid == -1)
@@ -32,12 +32,11 @@ int main(int ac, char **argv)
 	else if (pid == 0)
 	{
 	/* prints and gets the input from user */
-		/*printf("$ ");*/
+		printf("$ ");
 		nread_ch = getline(&lineptr, &n, stdin);
 		if (nread_ch == -1)
 		{
 			printf("Shell ......exited\n");
-			op = 0;
 			exit(0);
 			return (-1);
 		}
@@ -92,7 +91,7 @@ int path_form(char *lineptr, char *token, ssize_t nreadch)
 	lineptr_copy = malloc(sizeof(char) * nreadch);
 	if (lineptr_copy == NULL)
 	{
-		perror("tsh: memory allocation error");
+		perror("hsh: memory allocation error");
 		return (-1);
 	}
 	_strcpy(lineptr_copy, lineptr);

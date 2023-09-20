@@ -14,8 +14,11 @@ void execmd(char **argv)
 	{
 		cmd = argv[0];
 		command = get_path(cmd);
+		printf("%s %s\n", command, cmd);
 		if (execve(command, argv, NULL) == -1)
-			perror("Error:");
+		{
+			perror("hsh: Error");
+		}
 	}
 
 }
