@@ -35,7 +35,6 @@ void builtin_env(char **env)
 void builtin_cd(char **arg)
 {
 	char *cd_dir = NULL;
-	char *ev_ag[] = {NULL, NULL, NULL};
 
 	if (arg[1] == NULL)/*if there is no argument*/
 	{
@@ -59,8 +58,4 @@ void builtin_cd(char **arg)
 		perror("hsh: chdir error");
 		return;
 	}
-	ev_ag[0] = "PWD";
-	ev_ag[1] = getcwd(NULL, 0);
-	ev_ag[2] = NULL;
-	setenv_builtin(ev_ag);
 }
