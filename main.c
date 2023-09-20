@@ -14,51 +14,59 @@ int main(int ac, char **argv)
 	int num_tokens = 0, i;
 	size_t n = 0;
 	ssize_t nread_ch;
+	struct stat buffer;
 	pid_t pid;
 
 	(void)ac;
 	/* displays the shell over and over */
 	while (1)
 	{
-		pid = fork();
-		if (pid == -1)
-		{
-			perror("hsh: Fork error");
-			return (-1);
-		}
-		else if (pid == 0)
-		{
-			/* prints and gets the input from user */
-			printf("$ ");
-			nread_ch = getline(&lineptr, &n, stdin);
-			if (nread_ch == -1)
-			{
-				printf("shell exited\n");
-				exit(0);
-				return (-1);
-			}
-			/**
-			 * makes a copy of the string and divides it into separate strings
-			 * for command execution
-			 * */
-			num_tokens = path_form(lineptr, token, nread_ch);
-			argv = malloc(sizeof(char *) * num_tokens);
-			if (argv == NULL)
-				return (-1);
-			
-			token = cust_strtok(lineptr, delim);
-			for (i = 0; token != NULL; i++)
-			{
-				argv[i] = malloc(sizeof(char) * _strlen(token));
-				_strcpy(argv[i], token);
-				token = cust_strtok(NULL, delim);
-			}
-			argv[i] = NULL;
-			execmd(argv);
-		}
-		else
-			wait(NULL);
+	/* prints and gets the input from user */
+	printf("$ ");
+	nread_ch = getline(&lineptr, &n, stdin);
+	if (nread_ch == -1)
+	{
+		printf("Shell ......exited\n");
+		return (-1);
 	}
+
+	/**
+	 * makes a copy of the string and divides it into separate strings
+	 * for command execution
+	 */
+		num_tokens = path_form(lineptr, token, nread_ch);
+
+	/*allocates space to keep the array of strings*/
+		argv = malloc(sizeof(char *) * num_tokens);
+		if (argv == NULL)
+			return (-1);
+		token = cust_strtok(lineptr, delim);
+
+		for (i = 0; token != NULL; i++)
+		{
+			argv[i] = malloc(sizeof(char) * _strlen(token));
+			_strcpy(argv[i], token);
+			token = cust_strtok(NULL, delim);
+		}
+		argv[i] = NULL;
+	if (stat(get_path(argv[0]), &buffer) == 0)
+	{
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("Error... occurred");
+		return (-1);
+	}
+	else if (pid == 0)
+	{
+	/* Executes the command */
+		execmd(argv);
+	}
+	else
+		wait(NULL);
+	}
+	}
+
 	free(argv);
 	free(lineptr);
 	return (0);
