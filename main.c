@@ -12,15 +12,16 @@ int path_form(char *lineptr, char *token, ssize_t nreadch);
 
 int main(int ac, char **argv)
 {
-	char *p = "$ ", *lineptr;
+	char *lineptr;
 	char *delim = " \n", *token;
-	int num_tokens = 0, i, pid;
+	int num_tokens = 0, i, op = 1;
 	size_t n = 0;
 	ssize_t nread_ch;
+	pid_t pid;
 
 	(void)ac;
 	/* displays the shell over and over */
-	while (1)
+	while (op)
 	{
 	pid = fork();
 	if (pid == -1)
@@ -28,37 +29,44 @@ int main(int ac, char **argv)
 		perror("Error... occurred");
 		return (-1);
 	}
-	/* prints and gets the input from user */
-	printf("%s", p);
-	nread_ch = getline(&lineptr, &n, stdin);
-	if (nread_ch == -1)
+	else if (pid == 0)
 	{
-		printf("Shell ......exited\n");
-		return (-1);
-	}
+	/* prints and gets the input from user */
+		/*printf("$ ");*/
+		nread_ch = getline(&lineptr, &n, stdin);
+		if (nread_ch == -1)
+		{
+			printf("Shell ......exited\n");
+			op = 0;
+			exit(0);
+			return (-1);
+		}
 
 	/**
 	 * makes a copy of the string and divides it into separate strings
 	 * for command execution
 	 */
-	num_tokens = path_form(lineptr, token, nread_ch);
+		num_tokens = path_form(lineptr, token, nread_ch);
 
 	/*allocates space to keep the array of strings*/
-	argv = malloc(sizeof(char *) * num_tokens);
-	if (argv == NULL)
-		return (-1);
-	token = strtok(lineptr, delim);
+		argv = malloc(sizeof(char *) * num_tokens);
+		if (argv == NULL)
+			return (-1);
+		token = cust_strtok(lineptr, delim);
 
-	for (i = 0; token != NULL; i++)
-	{
-		argv[i] = malloc(sizeof(char) * _strlen(token));
-		_strcpy(argv[i], token);
-		token = strtok(NULL, delim);
-	}
-	argv[i] = NULL;
+		for (i = 0; token != NULL; i++)
+		{
+			argv[i] = malloc(sizeof(char) * _strlen(token));
+			_strcpy(argv[i], token);
+			token = cust_strtok(NULL, delim);
+		}
+		argv[i] = NULL;
 
 	/* Executes the command */
-	execmd(argv);
+		execmd(argv);
+		}
+		else
+			wait(NULL);
 	}
 
 	free(argv);
@@ -88,12 +96,12 @@ int path_form(char *lineptr, char *token, ssize_t nreadch)
 		return (-1);
 	}
 	_strcpy(lineptr_copy, lineptr);
-	token = strtok(lineptr_copy, delim);
+	token = cust_strtok(lineptr_copy, delim);
 
 	while (token != NULL)
 	{
 		num_tokens++;
-		token = strtok(NULL, delim);
+		token = cust_strtok(NULL, delim);
 	}
 	num_tokens++;
 	free(lineptr_copy);

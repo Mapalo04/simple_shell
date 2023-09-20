@@ -6,8 +6,8 @@
 #include <stdbool.h>
 #include <unistd.h>
 #include <sys/types.h>
+#include <sys/wait.h>
 #include <sys/stat.h>
-#include <string.h>
 
 #define BUF_SIZE 1024
 
@@ -21,7 +21,7 @@ int _strncmp(const char *str1, const char *str2, size_t n);
 char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 int _strlen(const char *s);
-char *my_getline(char *lptr, size_t *mag, FILE *stream);
+ssize_t my_getline(char **lptr, size_t *mag, FILE *stream);
 char *cust_strtok(char *string, const char *delimiters);
 
 

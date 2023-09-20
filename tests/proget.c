@@ -19,7 +19,7 @@ int main(void)
 		printf("$ ");
 		fflush(stdout);
 
-		read_line = (ssize_t)my_getline(line, &n, stdin);
+		read_line = my_getline(&line, &n, stdin);
 		if (read_line == -1)
 		{
 			perror("getline error");

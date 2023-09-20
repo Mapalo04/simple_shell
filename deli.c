@@ -5,7 +5,7 @@ char *cust_strtok(char *command, const char *del)
 {
 	char *begin_token; /*where the string command starts*/
 	static char *end_token = NULL;/*the last string*/
-	bool is_delim = true;
+	/*bool is_delim = true;*/
 	
 	if (command != NULL)
 	{

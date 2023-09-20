@@ -8,15 +8,15 @@
  * Return: The line to be read, otherwise -1
  */
 
-char *my_getline(char *lptr, size_t *mag, FILE *stream)
+ssize_t my_getline(char **lptr, size_t *mag, FILE *stream)
 {
 	static char buf[BUF_SIZE];
 	static size_t buf_sz;
 	static size_t buf_place;
-	size_t i = 0;
+	ssize_t i = 0;
 	char m;
 
-	while (i < (*mag) - 1)
+	while (i < (ssize_t) ((*mag) - 1))
 	{
 		if (buf_place == buf_sz)
 		{
@@ -32,9 +32,9 @@ char *my_getline(char *lptr, size_t *mag, FILE *stream)
 		{
 			break;
 		}
-		lptr[i++] = m;
+		*lptr[i++] = m;
 	}
-	lptr[i] = '\0';
-	return (lptr);
+	*lptr[i] = '\0';
+	return (i);
 }
 

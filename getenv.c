@@ -25,7 +25,7 @@ char *my_getenv(const char *nm)
 	}
 	return (NULL);
 }
-int main() {
+/**int main() {
     const char *var_name = "PATH";
     char *var_value = my_getenv(var_name);
 
@@ -37,3 +37,4 @@ int main() {
 
     return 0;
 }
+*/
