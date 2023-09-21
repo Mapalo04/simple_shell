@@ -22,6 +22,7 @@ char *_strcat(char *dest, char *src);
 char *_strcpy(char *dest, char *src);
 int _strlen(const char *s);
 const char* _strchr(const char *s, int ch);
+void custom_eof(char **buf, ssize_t val);
 void builtin_cd(char **arg);
 void builtin_env(char **arg);
 void unsetenv_builtin(char **arg);

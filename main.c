@@ -13,12 +13,12 @@ int main(int ac, char **argv)
 	char *delim = " \n", *token;
 	int num_tokens = 0, i;
 	size_t n = 0;
-	ssize_t nread_ch;
+	ssize_t nread_ch = 0;
 	pid_t pid;
 
 	(void)ac;
 	/* displays the shell over and over */
-	while (1)
+	while (nread_ch != -1)
 	{
 		/* prints and gets the input from user */
 		pid = fork();
@@ -31,13 +31,8 @@ int main(int ac, char **argv)
 		{
 			printf("$ ");
 			nread_ch = getline(&lineptr, &n, stdin);
-			if (nread_ch == -1 || nread_ch == EOF)
-			{
-				printf("shell exited\n");
-				exit(0);
-				return (-1);
-			}/*makes a copy of the string and divides it into separate strings*/
-			num_tokens = path_form(lineptr, token, nread_ch);
+			custom_eof(&lineptr, nread_ch);/*handle end of line*/
+			num_tokens = path_form(lineptr, token, nread_ch);/*now we tokenize string*/
 			argv = malloc(sizeof(char *) * num_tokens);
 			if (argv == NULL)
 				return (-1);
@@ -50,14 +45,19 @@ int main(int ac, char **argv)
 			}
 			argv[i] = NULL;
 			execmd(argv);
+			for (i = 0; i < num_tokens; i++)
+			{
+				free(argv[i]);
+			}
+			free(argv);
 		}
 		else
 		{
 			wait(NULL);
 		}
 	}
-	free(argv);
-	free(lineptr);
+	if (lineptr != NULL)
+		free(lineptr);
 	return (0);
 }
 /**
@@ -68,8 +68,6 @@ int main(int ac, char **argv)
  *
  * Return: number of tokens
  */
-
-
 int path_form(char *lineptr, char *token, ssize_t nreadch)
 {
 	char *lineptr_copy = NULL, *delim = " \n";
