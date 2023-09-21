@@ -66,7 +66,7 @@ char *_strdup(char *s)
 		dup[a] = s[a];
 		a++;
 	}
-
+	
 	return (dup);
 }
 /**

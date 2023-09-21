@@ -13,7 +13,7 @@ void custom_eof(char **buf, ssize_t val)
 	if (val == -1)
 	{
 		printf("\n");
-		free(buf);
+		/*free(buf);*/
 		exit(0);
 	}
 }
