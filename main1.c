@@ -21,7 +21,7 @@ int main(void)
 	int i = 0;
 	pid_t pid;
 
-	while (nread_ch != -1)
+	while (1)
 	{
 		printf("$ ");
 		nread_ch = getline(&lineptr, &n, stdin);
@@ -42,7 +42,7 @@ int main(void)
 			token = strtok(NULL, " \n");
 		}
 		args[i] = NULL;
-		if (nread_ch != -1){
+		
 		pid = fork();
 		if (pid == -1)
 			perror("hsh: fork error");
@@ -53,7 +53,7 @@ int main(void)
 		}
 		else
 			wait(NULL);
-		}
+		
 
 	}
 
