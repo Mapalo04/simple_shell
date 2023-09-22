@@ -7,9 +7,7 @@
 
 #define MAX_INPUT_SIZE 100
 
-void strtrim(char *str);
-
-int main()
+int main(void)
 {
 	char cmd[MAX_INPUT_SIZE];
 	int byt, status;
