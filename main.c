@@ -10,14 +10,16 @@
 int main(void)
 {
 	char cmd[MAX_INPUT_SIZE];
-	int byt, status;
+	int byt, status = 0;
 	pid_t child_pid;
 	char *argv[] = {NULL, NULL};
-	
+
 	while (1)
 	{
 		write(STDOUT_FILENO, "$ ", 2);
+		fflush(stdout);
 		byt = read(STDIN_FILENO, cmd, MAX_INPUT_SIZE);
+		
 		if (byt == 0)
 		{
 			write(STDOUT_FILENO, "\n", 1);
@@ -25,7 +27,7 @@ int main(void)
 		}
 		else if (byt == -1)
 		{
-			perror("read");
+			perror("hsh: read");
 			exit(1);
 		}
 		cmd[byt] = '\0';
@@ -39,7 +41,7 @@ int main(void)
 			perror("fork");
 			exit(1);
 		}
-		if (child_pid == 0)
+		else if (child_pid == 0)
 		{
 			argv[0] = cmd;
 			argv[1] = NULL;
