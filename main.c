@@ -19,7 +19,7 @@ int main(void)
 		write(STDOUT_FILENO, "$ ", 2);
 		fflush(stdout);
 		byt = read(STDIN_FILENO, cmd, MAX_INPUT_SIZE);
-		
+
 		if (byt == 0)
 		{
 			write(STDOUT_FILENO, "\n", 1);
