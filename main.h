@@ -17,7 +17,7 @@ ssize_t custom_getline(char *cmd, size_t max_size);
 void _execute(char *argc);
 char *cust_strtok(char *command, const char *del);
 int _strncmp(const char *str1, const char *str2, size_t n);
-const char* _strchr(const char *s, int ch);
+const char *_strchr(const char *s, int ch);
 int _strlen(const char *s);
 char *_strcpy(char *dest, char *src);
 char *_strdup(char *s);
